@@ -17,7 +17,7 @@ sleep 3
 # Takes several arugments:
 # 
 # 1. `youtube_video_link` the http:// link to the youtube video, to be downloaded by youtube-dl.
-# 2. `start_time` formatted as "MM:SS"
+# 2. `start_time` formatted as "HH:MM:SS"
 # 3. `duration` formatted as "SS"
  
 if [ -z "$1" ]; then
