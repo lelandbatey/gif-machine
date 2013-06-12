@@ -67,7 +67,7 @@ def main(videoLink=None,startTime=None, endTime = None):
             endTime = sys.argv[3]
 
         # If that command line argument is a youtube link, then set that as the videoLink
-        if "youtube" is in sys.argv[1]:
+        if "youtube" in sys.argv[1]:
             videoLink = sys.argv[1]
 
         gifName = create_rand_name() + ".gif"
