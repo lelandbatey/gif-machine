@@ -62,7 +62,7 @@ def main(videoLink=None,startTime=None, endTime = None):
 
         # If the end time is passed in as an absolute point, verify that as well.
         if ":" in sys.argv[3]:
-            endTime = sys.argv[3]
+            endTime = verify_time(sys.argv[3])
         else:
             endTime = sys.argv[3]
 
