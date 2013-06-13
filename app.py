@@ -27,3 +27,8 @@ def make_gif():
     # We return the url where all images are and the image name to find it.
     return ROOT_URL+toReturn
 
+if __name__ == '__main__':
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.debug = True
+    app.run(host='0.0.0.0', port=port)
