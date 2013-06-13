@@ -87,6 +87,13 @@ def main(videoLink=None,startTime=None, endTime = None):
         if "youtube" in sys.argv[1]:
             videoLink = sys.argv[1]
 
+        # If they provided a width, then send that.
+        if sys.argv[4]:
+            gifWidth = sys.argv[4]
+        else:
+            gifWidth = "150"
+
+
         gifName = create_rand_name() + ".gif"
         
         print('./videoConverter.sh', videoLink, startTime, endTime, gifName)
