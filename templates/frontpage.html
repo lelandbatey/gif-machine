@@ -74,7 +74,7 @@ pre code {
 function getPageJson(){
 
     //Set button disabled
-    $("#submitBtn").attr("disabled", "disabled");
+    //$("#submitBtn").attr("disabled", "disabled");
 
     var youtubeUrl = $('#youtubeUrl').val();
     var startTime  = $('#startTime').val();
@@ -82,17 +82,41 @@ function getPageJson(){
 
     var makeURL = '/makegif'
 
-    $.post( makeURL,
-        {
-         "videoLink" : youtubeUrl,
-         "startTime" : startTime,
-         "endTime"   : endTime
-        },
-        function(data){
-            window.location.href = data;
-    });
-}
+    $.ajax({
+        type: "post",
+        url: makeURL,
+        data: JSON.stringify({
+                 "videoLink" : window.btoa(youtubeUrl),
+                 "startTime" : startTime,
+                 "endTime"   : endTime
+                }),
+        success: function(data){
 
+                    console.log("Why aren't we changing?");
+                    window.location.href = data["imgAddress"];
+            },
+        error: function(whoa, errormsg, errorThrown){
+            console.log("Something bad happened.");
+            console.log("errormsg:"+errormsg)
+
+        },
+        contentType:"application/json; charset=utf-8",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        dataType: "json"
+    });
+
+    // $.post( makeURL,{
+    //      "videoLink" : youtubeUrl,
+    //      "startTime" : startTime,
+    //      "endTime"   : endTime
+    //     },
+    //     function(data){
+    //         window.location.href = data;
+    // },
+    // "json");
+}
 
 </script>
 
@@ -102,7 +126,7 @@ function getPageJson(){
     Youtube Url: <input id="youtubeUrl" size="40"></input><br>
     Start time (HH:MM:SS): <input id="startTime" size="30"></input><br>
     End time (HH:MM:SS): <input id="endTime" size="30"></input><br>
-    <button id="submitBtn" onlcick="getPageJson()">Make a gif!</button>
+    <button id="submitBtn" onclick="getPageJson()">Make a gif!</button>
 </div>
 </body>
 

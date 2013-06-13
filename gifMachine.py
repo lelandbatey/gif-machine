@@ -64,35 +64,53 @@ def diff_time(startTime, endTime):
     return str(difference)
 
 
-def build_gif(videoLink=None,startTime=None, endTime = None, outputDir=""):
+def build_gif(videoLink=None,startTime=None, endTime = None, outputDir="", width="150"):
+
+    print("videoLink: "+str(videoLink))
+    print("startTime: "+str(startTime))
+    print("endTime: "+str(endTime))
+    print("outputDir: "+str(outputDir))
 
     doneFlag = False
 
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 3 and not videoLink:
         print("Did not provide enough arguments :/ \n Exiting.")
         doneFlag = True
 
     if not doneFlag:
 
         # Verify the start time is in the correct format
-        startTime = verify_time(sys.argv[2])
+        if not startTime:
+            startTime = verify_time(sys.argv[2])
+        else:
+            startTime = verify_time(startTime)
 
         # If the end time is passed in as an absolute point, verify that as well.
-        if ":" in sys.argv[3]:
-            endTime = diff_time(startTime,verify_time(sys.argv[3]))
+        if not endTime:
+            if ":" in sys.argv[3]:
+                endTime = diff_time(startTime,verify_time(sys.argv[3]))
+            else:
+                endTime = sys.argv[3]
         else:
-            endTime = sys.argv[3]
+            if ":" in endTime:
+                endTime = diff_time(startTime,verify_time(endTime))
+            else:
+                endTime = endTime
 
         # If that command line argument is a youtube link, then set that as the videoLink
-        if "youtube" in sys.argv[1]:
-            videoLink = sys.argv[1]
+        if not videoLink:
+            if "youtube" in sys.argv[1]:
+                videoLink = sys.argv[1]
+
 
         # If they provided a width, then send that.
-        if sys.argv[4]:
-            gifWidth = sys.argv[4]
+        if not width:
+            if sys.argv[4]:
+                gifWidth = sys.argv[4]
+            else:
+                gifWidth = "150"
         else:
-            gifWidth = "150"
-
+            gifWidth = width
 
         gifName = create_rand_name() + ".gif"
         
@@ -101,6 +119,7 @@ def build_gif(videoLink=None,startTime=None, endTime = None, outputDir=""):
         call(['./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir ])
 
         print("Video has been converted and is: "+gifName)
+        doneFlag = True
 
     if doneFlag:
         return gifName
