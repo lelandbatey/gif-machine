@@ -8,10 +8,10 @@ ORIGINAL_DIR+="/"
 TEMPDIR=$(mktemp -d)
 
 cd $TEMPDIR
-
+echo -e "INVOKED WITH:\n\t$0 $1 $2 $3 $4 $5"
 echo "Tempdir: $TEMPDIR"
 echo "Original dir: $ORIGINAL_DIR"
-echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
+#echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
 
 sleep 3
 # Takes several arugments:
@@ -44,7 +44,7 @@ youtube-dl -f 18/17/22 -o "video.mp4" $1
 # Layout of how the FFMPEG command needs to look:
 #     ffmpeg -i the_video_file.mp4 -ss {start_timestamp} -t {duration} out%04d.png
 echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
-avconv -i video.mp4 -ss $2 -t $3 out%04d.png
+avconv -loglevel panic -i video.mp4 -ss $2 -t $3 out%04d.png
 
 
 convert -delay 4 out*.png -resize "$5" anim.gif # Combines all the frames into one very nicely animated gif.
