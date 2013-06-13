@@ -1,0 +1,109 @@
+<html>
+<head>
+<style type="text/css">
+body {
+
+    font-family      :Arial,Helvetica,sans-serif;
+    color            : #333;
+    background-color : #fff;
+    border-color     : #999999;
+    border-width     : 2px;
+    line-height      : 1.5;
+    margin           : 2em 3em;
+    text-align       :left;
+    font-size        : 1.2em;
+    padding          : 0 100px 0 100px;
+}
+
+h1 {
+    font-family: 'Gill Sans Bold', 'Optima Bold', Arial, sans-serif;
+    color       : #999;
+    font-weight : 400;
+    font-size   : 36px;
+}
+h2{
+    border-bottom : 1px dotted #aaa;
+    margin-bottom : 1em;
+    color         : #333;
+    font-size     : 30px;
+}
+h3{
+    color     : #666;
+    font-size : 24px;
+}
+h4 {
+    font-size: 21px;
+}
+h5 {
+    font-size: 18px;
+}
+code {
+    font-family      : Consolas, "Inconsolata", Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif; /* Taken from the stackOverflow CSS*/
+    background-color : #f5f5f5;
+    border           : 1px solid #e1e1e8;
+}
+
+pre {
+    display          : block;
+    background-color : #f5f5f5;
+    border           : 1px solid #ccc;
+    padding          : 3px 3px 3px 3px;
+
+}
+pre code {
+    white-space      : pre-wrap;
+    padding          : 0;
+    border           : 0;
+    background-color : code;
+}
+
+#content {
+    width         : 660px;
+    margin-top    : 0px;
+    margin-bottom : 0px;
+    margin-left   : auto;
+    margin-right  : auto;
+}
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+<script type="text/javascript">
+
+function getPageJson(){
+
+    //Set button disabled
+    $("#submitBtn").attr("disabled", "disabled");
+
+    var youtubeUrl = $('#youtubeUrl').val();
+    var startTime  = $('#startTime').val();
+    var endTime    = $('#endTime').val();
+
+    var makeURL = '/makegif'
+
+    $.post( makeURL,
+        {
+         "videoLink" : youtubeUrl,
+         "startTime" : startTime,
+         "endTime"   : endTime
+        },
+        function(data){
+            window.location.href = data;
+    });
+}
+
+
+</script>
+
+<div id="content">
+    <h1>Youtube to Gif</h1>
+    <p> Enter the Youtube url and the start and end time of the .gif (formatted as HH:MM:SS). Click the button, then wait (it might take a WHILE).</p>
+    <input id="youtubeUrl" size="40"></input>
+    <input id="startTime" size="30"></input>
+    <input id="endTime" size="30"></input>
+    <button id="submitBtn" onlcick="getPageJson()"></button>
+</div>
+</body>
+
+</html>

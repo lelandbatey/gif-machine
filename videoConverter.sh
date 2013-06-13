@@ -8,7 +8,7 @@ ORIGINAL_DIR+="/"
 TEMPDIR=$(mktemp -d)
 
 cd $TEMPDIR
-echo -e "INVOKED WITH:\n\t$0 $1 $2 $3 $4 $5"
+echo -e "INVOKED WITH:\n\t$0 $1 $2 $3 $4 $5 $6"
 echo "Tempdir: $TEMPDIR"
 echo "Original dir: $ORIGINAL_DIR"
 #echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
@@ -19,7 +19,11 @@ sleep 3
 # 1. `youtube_video_link` the http:// link to the youtube video, to be downloaded by youtube-dl.
 # 2. `start_time` formatted as "HH:MM:SS"
 # 3. `duration` formatted as "SS"
+# 4. `width` as number of pixels
+# 5. `output_dir` as a path to a directory
  
+
+# These are required, but the other commands aren't
 if [ -z "$1" ]; then
 	echo "You didn't provide a first argument -- Exiting."
 	exit
@@ -34,6 +38,7 @@ else
 		fi
 	fi
 fi
+
 # Done verifying arguments
 
 # Downloads the video file:
@@ -50,8 +55,12 @@ avconv -loglevel panic -i video.mp4 -ss $2 -t $3 out%04d.png
 convert -delay 4 out*.png -resize "$5" anim.gif # Combines all the frames into one very nicely animated gif.
 #convert -layers Optimize anim.gif optimized_output.gif # Optimizes the gif using imagemagick
 
-# Moving our completed gif back to our correct directory
+if [ -n "$6" ]; then
+	ORIGINAL_DIR="$6"
+fi
 
+
+# Moving our completed gif back to our correct directory
 if [ -n "$4" ]; then
 	mv anim.gif $ORIGINAL_DIR$4
 else

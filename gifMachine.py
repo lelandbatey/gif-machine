@@ -64,7 +64,7 @@ def diff_time(startTime, endTime):
     return str(difference)
 
 
-def main(videoLink=None,startTime=None, endTime = None):
+def build_gif(videoLink=None,startTime=None, endTime = None, outputDir=""):
 
     doneFlag = False
 
@@ -96,15 +96,19 @@ def main(videoLink=None,startTime=None, endTime = None):
 
         gifName = create_rand_name() + ".gif"
         
-        print('./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth)
+        print('./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir)
         # Run the actual command
-        call(['./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth ])
+        call(['./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir ])
 
         print("Video has been converted and is: "+gifName)
 
+    if doneFlag:
+        return gifName
+    else:
+        return "ERROR"
 
     
 
 
 if __name__ == '__main__':
-    main()
+    build_gif()
