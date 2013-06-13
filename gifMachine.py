@@ -2,8 +2,10 @@ from __future__ import print_function
 import time
 from pprint import pprint
 import sys
+import os
 import random
 from subprocess import call
+import subprocess
 
 # Takes several arugments:
 # 
@@ -116,7 +118,7 @@ def build_gif(videoLink=None,startTime=None, endTime = None, outputDir="", width
         
         print('./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir)
         # Run the actual command
-        call(['./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir ])
+        call(['./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir ], cwd=os.getcwd())#,stdout=subprocess.PIPE)
 
         print("Video has been converted and is: "+gifName)
         doneFlag = True

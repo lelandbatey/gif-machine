@@ -15,6 +15,8 @@ app = Flask(__name__)
 ROOT_URL = "http://bateyhomeserver/rand/"
 OUTPUT_DIR = "/var/www/rand/"
 
+app.debug = True
+
 @app.route('/')
 def root():
     return render_template("frontpage.html")
