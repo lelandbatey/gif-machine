@@ -47,6 +47,23 @@ def create_rand_name(nameLength = 6):
 
     return ourStr
 
+def calc_seconds(timeArray):
+    toReturn = (int(timeArray[0])*3600) + (int(timeArray[1])*60) + (int(timeArray[2]))
+    return toReturn
+
+def diff_time(startTime, endTime):
+    # Takes the full timestamps and calculates the difference in seconds between them.
+    startTime = startTime.split(':')
+    endTime = endTime.split(':')
+
+    startSec = calc_seconds(startTime)
+    endSec = calc_seconds(endTime)
+
+    difference = endSec - startSec
+
+    return difference
+
+
 def main(videoLink=None,startTime=None, endTime = None):
 
     doneFlag = False
@@ -62,7 +79,7 @@ def main(videoLink=None,startTime=None, endTime = None):
 
         # If the end time is passed in as an absolute point, verify that as well.
         if ":" in sys.argv[3]:
-            endTime = verify_time(sys.argv[3])
+            endTime = diff_time(startTime,verify_time(sys.argv[3]))
         else:
             endTime = sys.argv[3]
 
