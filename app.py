@@ -2,6 +2,7 @@ from __future__ import print_function
 from flask import Flask, request, json, render_template
 from subprocess import call
 from pprint import pprint
+import gifMachine
 import random
 import flask
 import sys
@@ -21,7 +22,7 @@ def make_gif():
 
     # Takes the post request and calls the build_gif params of gifMachine
     if request.json:
-        toReturn = build_gif(request['videoLink'],request['startTime'], request['endTime'], OUTPUT_DIR)
+        toReturn = gifMachine.build_gif(request['videoLink'],request['startTime'], request['endTime'], OUTPUT_DIR)
 
     # We return the url where all images are and the image name to find it.
     return ROOT_URL+toReturn
