@@ -72,7 +72,7 @@ def main(videoLink=None,startTime=None, endTime = None):
 
         gifName = create_rand_name() + ".gif"
         
-
+        print('./videoConverter.sh', videoLink, startTime, endTime, gifName)
         # Run the actual command
         call(['./videoConverter.sh', videoLink, startTime, endTime, gifName ])
 
