@@ -61,7 +61,7 @@ def diff_time(startTime, endTime):
 
     difference = endSec - startSec
 
-    return difference
+    return str(difference)
 
 
 def main(videoLink=None,startTime=None, endTime = None):
