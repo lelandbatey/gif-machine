@@ -2,6 +2,7 @@ from __future__ import print_function
 from flask import Flask, request, json, render_template
 from subprocess import call
 from pprint import pprint
+import os
 import gifMachine
 import random
 import flask
