@@ -96,9 +96,9 @@ def main(videoLink=None,startTime=None, endTime = None):
 
         gifName = create_rand_name() + ".gif"
         
-        print('./videoConverter.sh', videoLink, startTime, endTime, gifName)
+        print('./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth)
         # Run the actual command
-        call(['./videoConverter.sh', videoLink, startTime, endTime, gifName ])
+        call(['./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth ])
 
         print("Video has been converted and is: "+gifName)
 
