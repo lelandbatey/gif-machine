@@ -80,7 +80,7 @@ function getPageJson(){
     var startTime  = $('#startTime').val();
     var endTime    = $('#endTime').val();
 
-    var makeURL = '/makegif'
+    var makeURL = document.URL+'/makegif'
 
     $.ajax({
         type: "post",
