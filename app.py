@@ -31,7 +31,8 @@ def make_gif():
         print("the request is json")
         print(request.form)
         toReturn = gifMachine.build_gif(base64.b64decode(request.json['videoLink']),\
-            request.json['startTime'], request.json['endTime'], OUTPUT_DIR)
+            request.json['startTime'], request.json['endTime'], OUTPUT_DIR,\
+            request.json['width'])
     # Why are we decoding a base64 string here? Well, to get around the problem
     # of dealing with escaping url's and such, they're just encoded in base64 by
     # the browser, then decoded on this end.

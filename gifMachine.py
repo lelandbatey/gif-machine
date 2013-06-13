@@ -72,6 +72,7 @@ def build_gif(videoLink=None,startTime=None, endTime = None, outputDir="", width
     print("startTime: "+str(startTime))
     print("endTime: "+str(endTime))
     print("outputDir: "+str(outputDir))
+    print("width: "+str(width))
 
     doneFlag = False
 
@@ -116,6 +117,8 @@ def build_gif(videoLink=None,startTime=None, endTime = None, outputDir="", width
 
         gifName = create_rand_name() + ".gif"
         
+        print("Gifwidth",gifWidth)
+
         print('./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir)
         # Run the actual command
         call(['./videoConverter.sh', videoLink, startTime, endTime, gifName, gifWidth, outputDir ], cwd=os.getcwd())#,stdout=subprocess.PIPE)

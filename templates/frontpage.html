@@ -79,6 +79,7 @@ function getPageJson(){
     var youtubeUrl = $('#youtubeUrl').val();
     var startTime  = $('#startTime').val();
     var endTime    = $('#endTime').val();
+    var vidWidth   = $('#vidWidth').val();
 
     var makeURL = window.location.href+'/makegif'
 
@@ -88,7 +89,8 @@ function getPageJson(){
         data: JSON.stringify({
                  "videoLink" : window.btoa(youtubeUrl),
                  "startTime" : startTime,
-                 "endTime"   : endTime
+                 "endTime"   : endTime,
+                 "width"     : vidWidth
                 }),
         success: function(data){
 
@@ -107,15 +109,6 @@ function getPageJson(){
         dataType: "json"
     });
 
-    // $.post( makeURL,{
-    //      "videoLink" : youtubeUrl,
-    //      "startTime" : startTime,
-    //      "endTime"   : endTime
-    //     },
-    //     function(data){
-    //         window.location.href = data;
-    // },
-    // "json");
 }
 $("#submitBtn").attr("disabled", "enabled");
 </script>
@@ -124,8 +117,9 @@ $("#submitBtn").attr("disabled", "enabled");
     <h1>Youtube to Gif</h1>
     <p> Enter the Youtube url and the start and end time of the .gif (formatted as HH:MM:SS). Click the button, then wait (it might take a WHILE).</p>
     Youtube Url: <input id="youtubeUrl" size="40"></input><br>
-    Start time (HH:MM:SS): <input id="startTime" size="30"></input><br>
-    End time (HH:MM:SS): <input id="endTime" size="30"></input><br>
+    Start time (HH:MM:SS): <input id="startTime" size="10"></input><br>
+    End time (HH:MM:SS): <input id="endTime" size="10"></input><br>
+    Width of the Gif (in pixels): <input id="vidWidth" size="10"></input><br>
     <button id="submitBtn" onclick="getPageJson()">Make a gif!</button>
 </div>
 </body>
