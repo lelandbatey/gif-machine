@@ -57,9 +57,9 @@ rm anim.gif
 # Moving our completed gif back to our correct directory
 
 if [ -n "$4" ]; then
-	mv optimized_output.gif $ORIGINAL_DIR$4
+	mv anim.gif $ORIGINAL_DIR$4
 else
-	mv optimized_output.gif $ORIGINAL_DIR
+	mv anim.gif $ORIGINAL_DIR
 fi
 
 cd $ORIGINAL_DIR
