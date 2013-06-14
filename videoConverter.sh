@@ -52,7 +52,7 @@ echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
 avconv -loglevel panic -i video.mp4 -ss $2 -t $3 out%04d.png
 
 
-convert -delay 4 out*.png -resize "$5" anim.gif # Combines all the frames into one very nicely animated gif.
+convert -layers optimize -fuzz 1.5% -delay 4 out*.png -resize "$5" anim.gif # Combines all the frames into one very nicely animated gif.
 #convert -layers Optimize anim.gif optimized_output.gif # Optimizes the gif using imagemagick
 
 if [ -n "$6" ]; then
