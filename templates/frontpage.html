@@ -66,6 +66,15 @@
         <p> Optionally, you can change the width of the .gif file to be created. If you don't enter a value for this, then it defaults to 150 pixels wide. Super easy : )</p>
       </div>
 
+      <div class="span5 offset3">
+        <div class="row">
+          <div class="progress">
+            <div class="bar" style="width: 50; visibility: hidden;" id="progressBar">
+            </div>
+          </div>
+        </div>
+      </div> <!-- /row -->
+
       <div class="span3 offset4">
         <div class="row">
           <div class="span3">
@@ -74,6 +83,7 @@
         </div> <!-- /row -->
       </div>
 
+
     </div> <!-- /container -->
 
     
@@ -81,7 +91,14 @@
     <!-- Load JS here for greater good =============================-->
 
 <script type="text/javascript">
+
+var incrementer = 0; // Will be used for super ghetto updater bar.
+var shouldProgress= 0; // flag for if the progressBar should be working.
+
+// When the submitBtn is clicked, this function happens.
 $('#submitBtn').click(function(){
+
+
 
     // btn btn-large btn-block disabled
     // $('.btn-primary').addClass('btn-block').removeClass('btn-primary');
@@ -91,6 +108,8 @@ $('#submitBtn').click(function(){
     // $("#submitBtn").toggleClass('btn-primary disabled');
     $("#submitBtn").removeClass('btn-primary').addClass('disabled');
     $("#submitBtn").text("This will take a while... You'll be redirected when it's done.")
+
+    shouldProgress = 1;
 
     var youtubeUrl = $('#youtubeUrl').val();
     var startTime  = $('#startTime').val();
@@ -126,6 +145,19 @@ $('#submitBtn').click(function(){
     });
 
 });
+
+
+( function updateBar(){
+  setTimeout(function(){
+    // console.log("It's working!");
+    if (shouldProgress > 0) {
+      $("#progressBar").css('visibility', 'visible');
+      $("#progressBar").css('width',incrementer+"%");
+      incrementer += 1;
+    };
+    updateBar();
+  }, 400);
+})();
 
 
 </script>
