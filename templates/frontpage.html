@@ -1,80 +1,96 @@
-<html>
-<head>
-<style type="text/css">
-body {
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Gif Converter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    font-family      :Arial,Helvetica,sans-serif;
-    color            : #333;
-    background-color : #fff;
-    border-color     : #999999;
-    border-width     : 2px;
-    line-height      : 1.5;
-    margin           : 2em 3em;
-    text-align       :left;
-    font-size        : 1.2em;
-    padding          : 0 100px 0 100px;
-}
+    <!-- Loading Bootstrap -->
+    <link href="http://nacr.us/asset/nacrGif/bootstrap/css/bootstrap.css" rel="stylesheet">
 
-h1 {
-    font-family: 'Gill Sans Bold', 'Optima Bold', Arial, sans-serif;
-    color       : #999;
-    font-weight : 400;
-    font-size   : 36px;
-}
-h2{
-    border-bottom : 1px dotted #aaa;
-    margin-bottom : 1em;
-    color         : #333;
-    font-size     : 30px;
-}
-h3{
-    color     : #666;
-    font-size : 24px;
-}
-h4 {
-    font-size: 21px;
-}
-h5 {
-    font-size: 18px;
-}
-code {
-    font-family      : Consolas, "Inconsolata", Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif; /* Taken from the stackOverflow CSS*/
-    background-color : #f5f5f5;
-    border           : 1px solid #e1e1e8;
-}
+    <!-- Loading Flat UI -->
+    <link href="http://nacr.us/asset/nacrGif/css/flat-ui.css" rel="stylesheet">
 
-pre {
-    display          : block;
-    background-color : #f5f5f5;
-    border           : 1px solid #ccc;
-    padding          : 3px 3px 3px 3px;
+    <link rel="shortcut icon" href="http://nacr.us/favicon.ico">
 
-}
-pre code {
-    white-space      : pre-wrap;
-    padding          : 0;
-    border           : 0;
-    background-color : code;
-}
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-#content {
-    width         : 660px;
-    margin-top    : 0px;
-    margin-bottom : 0px;
-    margin-left   : auto;
-    margin-right  : auto;
-}
-</style>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-</head>
 
-<body>
+    <div class="container">
+      <div style="padding: 43px 0 23px; text-align: center;">
+        <h1 class="demo-logo">
+          Gif Maker
+          <small>Create .gif's from Youtube videos.</small>
+        </h1>
+      </div>
+
+      <div class="span7">
+        <div class="row">
+          <!-- <div class="span2">
+            <h2>Youtube Link:</h2>
+          </div> -->
+          <div class="span4 offset2">
+            <input type="text" value="" placeholder="Youtube Link" class="span4" id="youtubeUrl"/>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <div class="span3 offset2">
+            <input type="text" value="" placeholder="Start Time (HH:MM:SS)" class="span3" id="startTime"/>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <div class="span3 offset2">
+            <input type="text" value="" placeholder="End Time (HH:MM:SS)" class="span3" id="endTime"/>
+          </div>
+        </div> <!-- /row -->
+
+        <div class="row">
+          <div class="span3 offset2">
+            <input type="text" value="" placeholder="Width (Optional)" class="span3" id="vidWidth"/>
+          </div>
+        </div> <!-- /row -->
+
+      </div>
+      <div class="span4">
+        <h2>Huh?</h2>
+        <p> Use Gif Maker to create animated gifs from your favorite Youtube videos. Enter the URL to the Youtube video, the time the gif should start at and the time the gif should end at.
+        </p>
+        <p> Optionally, you can change the width of the .gif file to be created. If you don't enter a value for this, then it defaults to 150 pixels wide. Super easy : )</p>
+      </div>
+
+      <div class="span3 offset4">
+        <div class="row">
+          <div class="span3">
+            <a href="#" class="btn btn-large btn-block btn-primary" id="submitBtn">Make a gif!</a>
+          </div>
+        </div> <!-- /row -->
+      </div>
+
+    </div> <!-- /container -->
+
+    
+    
+    <!-- Load JS here for greater good =============================-->
+
 <script type="text/javascript">
+$('#submitBtn').click(function(){
 
-function getPageJson(){
+    // btn btn-large btn-block disabled
+    // $('.btn-primary').addClass('btn-block').removeClass('btn-primary');
 
     //Set button disabled
-    $("#submitBtn").attr("disabled", "disabled");
+    // $("#submitBtn").attr("disabled", "disabled");
+    // $("#submitBtn").toggleClass('btn-primary disabled');
+    $("#submitBtn").removeClass('btn-primary').addClass('disabled');
+    $("#submitBtn").text("This will take a while... You'll be redirected when it's done.")
 
     var youtubeUrl = $('#youtubeUrl').val();
     var startTime  = $('#startTime').val();
@@ -109,19 +125,9 @@ function getPageJson(){
         dataType: "json"
     });
 
-}
-$("#submitBtn").attr("disabled", "enabled");
+});
+
+
 </script>
-
-<div id="content">
-    <h1>Youtube to Gif</h1>
-    <p> Enter the Youtube url and the start and end time of the .gif (formatted as HH:MM:SS). Click the button, then wait (it might take a WHILE).</p>
-    Youtube Url: <input id="youtubeUrl" size="40"></input><br>
-    Start time (HH:MM:SS): <input id="startTime" size="10"></input><br>
-    End time (HH:MM:SS): <input id="endTime" size="10"></input><br>
-    Width of the Gif (in pixels): <input id="vidWidth" size="10"></input><br>
-    <button id="submitBtn" onclick="getPageJson()">Make a gif!</button>
-</div>
-</body>
-
+  </body>
 </html>
