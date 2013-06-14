@@ -12,8 +12,8 @@ import sys
 
 app = Flask(__name__)
 
-ROOT_URL = "http://bateyhomeserver/rand/"
-OUTPUT_DIR = "/var/www/rand/"
+ROOT_URL = "http://public_URI_for_img_folder/"
+OUTPUT_DIR = "directory_on_filesystem_where_images_go"
 
 app.debug = True
 
