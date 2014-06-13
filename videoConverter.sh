@@ -11,16 +11,24 @@ cd $TEMPDIR
 echo -e "INVOKED WITH:\n\t$0 $1 $2 $3 $4 $5 $6"
 echo "Tempdir: $TEMPDIR"
 echo "Original dir: $ORIGINAL_DIR"
-#echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
 
 sleep 3
+
+VIDEO_LINK = "$1"
+START_TIME = "$2"
+END_TIME   = "$3"
+GIF_NAME   = "$4"
+GIF_WIDTH  = "$5"
+OUTPUT_DIR = "$6"
+
 # Takes several arugments:
 # 
 # 1. `youtube_video_link` the http:// link to the youtube video, to be downloaded by youtube-dl.
 # 2. `start_time` formatted as "HH:MM:SS"
-# 3. `duration` formatted as "SS"
-# 4. `width` as number of pixels
-# 5. `output_dir` as a path to a directory
+# 3. `end_time` formatted as "SS"
+# 4. `gif_name` (name of gif)
+# 5. `gif_width` width of the gif, in pixels
+# 6. `output_dir` as a path to a directory
  
 
 # These are required, but the other commands aren't
@@ -48,27 +56,33 @@ youtube-dl -f 18/17/22 -o "video.mp4" $1
 
 # Layout of how the FFMPEG command needs to look:
 #     ffmpeg -i the_video_file.mp4 -ss {start_timestamp} -t {duration} out%04d.png
-echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
-avconv -loglevel panic -i video.mp4 -ss $2 -t $3 out%04d.png
+echo "avconv -i video.mp4 -ss $START_TIME -t $END_TIME out%04d.png"
+avconv -loglevel panic -i video.mp4 -ss "$START_TIME" -t "$END_TIME" out%04d.png
 
 
-convert -layers optimize -fuzz 1.5% -delay 4 out*.png -resize "$5" anim.gif # Combines all the frames into one very nicely animated gif.
-#convert -layers Optimize anim.gif optimized_output.gif # Optimizes the gif using imagemagick
+# Combines all the frames into one very nicely animated gif.
+convert -layers optimize -fuzz 1.5% -delay 4 out*.png -resize "$GIF_WIDTH" anim.gif 
 
-if [ -n "$6" ]; then
-	ORIGINAL_DIR="$6"
+
+# If the user hasn't passed in an output directory, then set the output
+# directory to be the original directory. This is done because this script may
+# be used outside of automated environments.
+if [ -z "$OUTPUT_DIR" ]; then
+	OUTPUT_DIR="$ORIGINAL_DIR"
 fi
 
 
-# Moving our completed gif back to our correct directory
-if [ -n "$4" ]; then
-	mv anim.gif $ORIGINAL_DIR$4
+# Moving our completed gif back to our correct directory, with the correct
+# name (if specified).
+if [ -n "$GIF_NAME" ]; then
+	mv anim.gif $ORIGINAL_DIR$GIF_NAME
 else
 	mv anim.gif $ORIGINAL_DIR
 fi
 
+
+# Cleaning up
+
 cd $ORIGINAL_DIR
-
 rm -rf $TEMPDIR
-
 echo "Finished converting video to .gif!"
