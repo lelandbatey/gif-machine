@@ -3,7 +3,7 @@ Gif Machine
 
 Tiny web app for automaticall converting Youtube videos into animated .gifs.
 
-### [DEMO](http://nacr.us/gif)
+### [DEMO](http://gifmachine.xwl.me/)
 
 Requirements
 ------------

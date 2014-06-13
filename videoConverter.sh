@@ -14,12 +14,12 @@ echo "Original dir: $ORIGINAL_DIR"
 
 sleep 3
 
-VIDEO_LINK = "$1"
-START_TIME = "$2"
-END_TIME   = "$3"
-GIF_NAME   = "$4"
-GIF_WIDTH  = "$5"
-OUTPUT_DIR = "$6"
+VIDEO_LINK="$1"
+START_TIME="$2"
+END_TIME="$3"
+GIF_NAME="$4"
+GIF_WIDTH="$5"
+OUTPUT_DIR="$6"
 
 # Takes several arugments:
 # 
