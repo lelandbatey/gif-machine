@@ -12,8 +12,19 @@ import sys
 
 app = Flask(__name__)
 
+# Configuration for running gifMachine.
 ROOT_URL = "http://public_URI_for_img_folder/"
 OUTPUT_DIR = "directory_on_filesystem_where_images_go"
+
+
+# If there's a config file, we use that for our settings
+if os.path.isfile('gm_config.json'):
+    jf = open('gm_config.json','r')
+    config     = json.loads(jf.read())
+    ROOT_URL   = config['ROOT_URL']
+    OUTPUT_DIR = confif['OUTPUT_DIR']
+    jf.close()
+
 
 app.debug = True
 
