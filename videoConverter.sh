@@ -52,7 +52,7 @@ fi
 # Downloads the video file:
 # youtube-dl -f 34/35/18/6 -o "video.mp4" $1
 
-youtube-dl -f 18/17/22 -o "video.mp4" $1
+youtube-dl --no-playlist -f 18/17/22 -o "video.mp4" $1
 
 # Layout of how the FFMPEG command needs to look:
 #     ffmpeg -i the_video_file.mp4 -ss {start_timestamp} -t {duration} out%04d.png
