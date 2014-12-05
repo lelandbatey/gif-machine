@@ -19,8 +19,9 @@ sleep 3
 # 1. `youtube_video_link` the http:// link to the youtube video, to be downloaded by youtube-dl.
 # 2. `start_time` formatted as "HH:MM:SS"
 # 3. `duration` formatted as "SS"
-# 4. `width` as number of pixels
-# 5. `output_dir` as a path to a directory
+# 4. `gif_name` the name of the final gif
+# 5. `width` as number of pixels
+# 6. `output_dir` as a path to a directory
  
 
 # These are required, but the other commands aren't
@@ -44,28 +45,16 @@ fi
 # Downloads the video file:
 # youtube-dl -f 34/35/18/6 -o "video.mp4" $1
 
-youtube-dl -f 18/17/22 -o "video.mp4" $1
+youtube-dl --no-playlist -f 18/17/22 -o "video.mp4" $1
 
 # Layout of how the FFMPEG command needs to look:
 #     ffmpeg -i the_video_file.mp4 -ss {start_timestamp} -t {duration} out%04d.png
-echo "avconv -i video.mp4 -ss $2 -t $3 out%04d.png"
-avconv -loglevel panic -i video.mp4 -ss $2 -t $3 out%04d.png
+echo "ffmpeg -i video.mp4 -ss $2 -t $3 out%04d.png"
+ffmpeg -loglevel panic -i video.mp4 -ss "$2" -t "$3" out%04d.png
+ffmpeg -i out%04d.png -c:v libvpx -b:v 1M -crf 4 anim.webm
 
-
-convert -layers optimize -fuzz 1.5% -delay 4 out*.png -resize "$5" anim.gif # Combines all the frames into one very nicely animated gif.
-#convert -layers Optimize anim.gif optimized_output.gif # Optimizes the gif using imagemagick
-
-if [ -n "$6" ]; then
-	ORIGINAL_DIR="$6"
-fi
-
-
-# Moving our completed gif back to our correct directory
-if [ -n "$4" ]; then
-	mv anim.gif $ORIGINAL_DIR$4
-else
-	mv anim.gif $ORIGINAL_DIR
-fi
+OUTPUT_DIR="$6"
+mv anim.webm $OUTPUT_DIR$4
 
 cd $ORIGINAL_DIR
 
