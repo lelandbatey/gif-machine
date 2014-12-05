@@ -12,7 +12,14 @@ echo -e "INVOKED WITH:\n\t$0 $1 $2 $3 $4 $5 $6"
 echo "Tempdir: $TEMPDIR"
 echo "Original dir: $ORIGINAL_DIR"
 
-sleep 3
+# Adding the bin directory to the path of this script
+# Done so it can find custom-builds of ffmpeg
+if [ -d "$HOME/bin" ]; then
+    PATH=$PATH:$HOME/bin
+fi
+
+
+sleep 1
 
 VIDEO_LINK="$1"
 START_TIME="$2"
