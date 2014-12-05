@@ -7,7 +7,7 @@ import json
 import os
 
 
-APP = Flask(__name__)
+app = Flask(__name__)
 
 # Configuration for running gifMachine.
 ROOT_URL = "http://public_URI_for_img_folder/"
@@ -21,14 +21,14 @@ if os.path.isfile('gm_config.json'):
     OUTPUT_DIR = CONFIG['OUTPUT_DIR']
     JSON_FILE.close()
 
-APP.debug = True
+app.debug = True
 
-@APP.route('/')
+@app.route('/')
 def root():
     """Just renders the frontpage."""
     return render_template("frontpage.html")
 
-@APP.route('/makegif', methods=['POST'])
+@app.route('/makegif', methods=['POST'])
 def make_gif():
     """Makes the gif, returning the url for the gif."""
     print("Whooo, we are recieving the thing!")
@@ -65,5 +65,5 @@ def make_gif():
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     PORT = int(os.environ.get('PORT', 5000))
-    APP.debug = True
-    APP.run(host='0.0.0.0', port=PORT)
+    app.debug = True
+    app.run(host='0.0.0.0', port=PORT)
